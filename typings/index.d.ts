@@ -1,7 +1,7 @@
 declare module 'discord.js-commando' {
 	import { Channel, Client, ClientOptions, Collection, DMChannel, Emoji, Guild, GuildChannel, GuildMember, GuildResolvable, Message, MessageAttachment, MessageEmbed, MessageMentions, MessageOptions, MessageAdditions, MessageReaction, PermissionResolvable, PermissionString, ReactionEmoji, Role, Snowflake, StringResolvable, TextChannel, User, UserResolvable, VoiceState, Webhook } from 'discord.js';
 
-	export class Argument {
+	export class Argument<T extends ArgumentType = ArgumentType> {
 		private constructor(client: CommandoClient, info: ArgumentInfo);
 
 		private obtainInfinite(msg: CommandoMessage, vals?: string[], promptLimit?: number): Promise<ArgumentResult>;
@@ -18,7 +18,7 @@ declare module 'discord.js-commando' {
 		public oneOf: any[];
 		public parser: Function;
 		public prompt: string;
-		public type: ArgumentType;
+		public type: T;
 		public validator: Function;
 		public wait: number;
 
