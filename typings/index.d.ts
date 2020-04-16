@@ -1,5 +1,35 @@
 declare module 'discord.js-commando' {
-	import { Channel, Client, ClientOptions, Collection, DMChannel, Emoji, Guild, GuildChannel, GuildMember, GuildResolvable, Message, MessageAttachment, MessageEmbed, MessageMentions, MessageOptions, MessageAdditions, MessageReaction, PermissionResolvable, PermissionString, ReactionEmoji, Role, Snowflake, StringResolvable, TextChannel, User, UserResolvable, VoiceState, Webhook } from 'discord.js';
+	import {
+	Channel,
+	Client,
+	ClientOptions,
+	Collection,
+	DMChannel,
+	Emoji,
+	Guild,
+	GuildChannel,
+	GuildMember,
+	GuildResolvable,
+	Message,
+	MessageAttachment,
+	MessageEmbed,
+	MessageMentions,
+	MessageOptions,
+	MessageAdditions,
+	MessageReaction,
+	PermissionResolvable,
+	PermissionString,
+	ReactionEmoji,
+	Role,
+	Snowflake,
+	StringResolvable,
+	TextChannel,
+	User,
+	UserResolvable,
+	VoiceState,
+	Webhook,
+		ReactionManager
+} from 'discord.js';
 
 	export class Argument<T extends ArgumentType = ArgumentType> {
 		private constructor(client: CommandoClient, info: ArgumentInfo);
@@ -147,7 +177,7 @@ declare module 'discord.js-commando' {
 		public setEnabledIn(guild: GuildResolvable, enabled: boolean): void;
 	}
 
-	export class CommandoMessage {
+	export class CommandoMessage extends Message {
 		public constructor(message: Message, command?: Command, argString?: string, patternMatches?: string[]);
 
 		private deleteRemainingResponses(): void;
@@ -157,57 +187,21 @@ declare module 'discord.js-commando' {
 		private respond(options?: {}): Message | Message[];
 
 		public argString: string;
-		public readonly attachments: Collection<string, MessageAttachment>;
-		public readonly author: User;
-		public readonly channel: TextChannel | DMChannel;
-		public readonly cleanContent: string;
 		public readonly client: CommandoClient;
 		public command: Command;
-		public readonly content: string;
-		public readonly createdAt: Date;
-		public readonly createdTimestamp: number;
-		public readonly deletable: boolean;
-		public readonly editable: boolean;
-		public readonly editedAt: Date;
-		public readonly editedTimestamp: number;
-		public readonly edits: Message[];
-		public readonly embeds: MessageEmbed[];
 		public readonly guild: CommandoGuild;
-		public readonly id: string;
-		public readonly member: GuildMember;
-		public readonly mentions: MessageMentions;
 		public message: Message;
-		public readonly nonce: string;
 		public patternMatches: string[];
-		public readonly pinnable: boolean;
-		public readonly pinned: boolean;
-		public readonly reactions: Collection<string, MessageReaction>;
 		public responsePositions: {};
 		public responses: {};
-		public readonly system: boolean;
-		public readonly tts: boolean;
-		public readonly webhookID: string;
 
 		public anyUsage(command?: string, prefix?: string, user?: User): string;
-		public clearReactions(): Promise<Message>;
 		public code(lang: string, content: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<Message | Message[]>
-		public delete(timeout?: number): Promise<Message>;
 		public direct(content: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<Message | Message[]>;
-		public edit(content: StringResolvable): Promise<Message>
-		public editCode(lang: string, content: StringResolvable): Promise<Message>;
-		public embed(embed: MessageEmbed | {}, content?: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<Message | Message[]>;
-		public fetchWebhook(): Promise<Webhook>;
-		public isMemberMentioned(member: GuildMember | User): boolean;
-		public isMentioned(data: GuildChannel | User | Role | string): boolean;
 		public parseArgs(): string | string[];
 		public static parseArgs(argString: string, argCount?: number, allowSingleQuote?: boolean): string[];
-		public pin(): Promise<Message>
-		public react(emoji: string | Emoji | ReactionEmoji): Promise<MessageReaction>;
-		public reply(content: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<Message | Message[]>;
-		public replyEmbed(embed: MessageEmbed | {}, content?: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<Message | Message[]>;
 		public run(): Promise<Message | Message[]>;
 		public say(content: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<Message | Message[]>;
-		public unpin(): Promise<Message>;
 		public usage(argString?: string, prefix?: string, user?: User): string;
 	}
 
