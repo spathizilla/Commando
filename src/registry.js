@@ -440,7 +440,7 @@ class CommandoRegistry {
 		const lcSearch = searchString.toLowerCase();
 		const matchedGroups = Array.from(this.groups.filter(
 			exact ? groupFilterExact(lcSearch) : groupFilterInexact(lcSearch)
-		).values());
+		));
 		if(exact) return matchedGroups;
 
 		// See if there's an exact match
@@ -481,7 +481,7 @@ class CommandoRegistry {
 	findCommands(searchString = null, exact = false, message = null) {
 		if(!searchString) {
 			return message ?
-				Array.from(this.commands.filter(cmd => cmd.isUsable(message)).values()) :
+				Array.from(this.commands.filter(cmd => cmd.isUsable(message))) :
 				Array.from(this.commands);
 		}
 
@@ -489,7 +489,7 @@ class CommandoRegistry {
 		const lcSearch = searchString.toLowerCase();
 		const matchedCommands = Array.from(this.commands.filter(
 			exact ? commandFilterExact(lcSearch) : commandFilterInexact(lcSearch)
-		).values());
+		));
 		if(exact) return matchedCommands;
 
 		// See if there's an exact match
