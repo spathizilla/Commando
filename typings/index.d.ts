@@ -128,7 +128,7 @@ declare module 'discord.js-commando' {
 		public onError(err: Error, message: CommandoMessage, args: object | string | string[], fromPattern: false, result?: ArgumentCollectorResult): Promise<Message | Message[]>;
 		public onError(err: Error, message: CommandoMessage, args: string[], fromPattern: true, result?: ArgumentCollectorResult): Promise<Message | Message[]>;
 		public reload(): void;
-		public run(message: CommandoMessage, args: object | string | string[], fromPattern: boolean, result?: ArgumentCollectorResult): Promise<Message | Message[] | null| undefined> | null | undefined;
+		public run(message: CommandoMessage, args: object | string | string[], fromPattern: boolean, result?: ArgumentCollectorResult): Promise<Message | Message[] | null| undefined | void> | null | undefined | void;
 		public setEnabledIn(guild: GuildResolvable, enabled: boolean): void;
 		public unload(): void;
 		public usage(argString?: string, prefix?: string, user?: User): string;
