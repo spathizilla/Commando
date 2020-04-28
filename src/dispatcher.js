@@ -255,8 +255,20 @@ class CommandDispatcher {
 		// Find the command to run with default command handling
 		const prefix = message.guild ? message.guild.commandPrefix : this.client.commandPrefix;
 		if(!this._commandPatterns[prefix]) this.buildCommandPattern(prefix);
+		// Look for 2-word commands
 		let cmdMsg = this.matchDefault(message, this._commandPatterns[prefix], 2);
-		if(!cmdMsg && !message.guild) cmdMsg = this.matchDefault(message, /^([^\s]+)/i, 1, true);
+		if(cmdMsg && !cmdMsg.command) {
+			// Look for 1-word commands
+			cmdMsg = this.matchDefault(message, this._commandPatterns[prefix], 3);
+		}
+		if(!cmdMsg && !message.guild) {
+			// Look for 2-word commands
+			cmdMsg = this.matchDefault(message, /^((\S+)(?:\s+\S+)?)/i, 1, true);
+			if(cmdMsg && !cmdMsg.command) {
+				// Look for 1-word commands
+				cmdMsg = this.matchDefault(message, /^((\S+)(?:\s+\S+)?)/i, 2, true);
+			}
+		}
 		return cmdMsg;
 	}
 
@@ -276,7 +288,8 @@ class CommandDispatcher {
 		if(commands.length !== 1 || !commands[0].defaultHandling) {
 			return message.initCommand(this.registry.unknownCommand, prefixless ? message.content : matches[1]);
 		}
-		const argString = message.content.substring(matches[1].length + (matches[2] ? matches[2].length : 0));
+		const argString = message.content.substring(matches[commandNameIndex].length +
+				(!prefixless ? matches[1].length : 0));
 		return message.initCommand(commands[0], argString);
 	}
 
@@ -291,10 +304,10 @@ class CommandDispatcher {
 		if(prefix) {
 			const escapedPrefix = escapeRegex(prefix);
 			pattern = new RegExp(
-				`^(<@!?${this.client.user.id}>\\s+(?:${escapedPrefix}\\s*)?|${escapedPrefix}\\s*)(\\S+(\\s+\\S+)?)`, 'i'
+				`^(<@!?${this.client.user.id}>\\s+(?:${escapedPrefix}\\s*)?|${escapedPrefix}\\s*)((\\S+)(?:\\s+\\S+)?)`, 'i'
 			);
 		} else {
-			pattern = new RegExp(`(^<@!?${this.client.user.id}>\\s+)([^\\s]+)`, 'i');
+			pattern = new RegExp(`(^<@!?${this.client.user.id}>\\s+)((\\S+)(?:\\s+\\S+)?)`, 'i');
 		}
 		this._commandPatterns[prefix] = pattern;
 		this.client.emit('debug', `Built command pattern for prefix "${prefix}": ${pattern}`);
