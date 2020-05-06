@@ -494,7 +494,7 @@ declare module 'discord.js-commando' {
 
 	type CommandResolvable = Command | string;
 
-	type Inhibitor = (msg: CommandoMessage) => Promise<false|string|Inhibition>;
+	type Inhibitor = (msg: CommandoMessage) => false | string | Inhibition | Promise<false | string | Inhibition>;
 	export interface Inhibition {
 		reason: string;
 		response?: Promise<Message>;
