@@ -478,6 +478,8 @@ declare module 'discord.js-commando' {
 		guarded?: boolean;
 		hidden?: boolean;
 		unknown?: boolean;
+		premium?: boolean;
+		securityLevel?: number;
 	}
 
 	export interface CommandoClientOptions extends ClientOptions {

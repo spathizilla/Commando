@@ -48,6 +48,8 @@ class Command {
 	 * @property {boolean} [guarded=false] - Whether the command should be protected from disabling
 	 * @property {boolean} [hidden=false] - Whether the command should be hidden from the help command
 	 * @property {boolean} [unknown=false] - Whether the command should be run when an unknown command is used - there
+	 * @property {boolean} [premium=false] - Whether the command should be limited to guilds with a premium subscription
+	 * @property {number} [securityLevel=0] - Security level to determine who is allowed to run the command
 	 * may only be one command registered with this property as `true`.
 	 */
 
@@ -225,6 +227,17 @@ class Command {
 		 * @type {boolean}
 		 */
 		this.unknown = Boolean(info.unknown);
+
+		/**
+		 * Whether the command should be limited to guilds with a premium subscription.
+		 * @type {boolean}
+		 */
+		this.premium = Boolean(info.premium);
+
+		/**
+		 * Security level to determine who is allowed to run the command.
+		 */
+		this.securityLevel = info.securityLevel ? info.securityLevel : 0;
 
 		/**
 		 * Whether the command is enabled globally
