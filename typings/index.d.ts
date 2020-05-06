@@ -115,6 +115,8 @@ declare module 'discord.js-commando' {
 		public patterns: RegExp[];
 		public throttling: ThrottlingOptions;
 		public unknown: boolean;
+		public premium: boolean;
+		public securityLevel: number;
 		public userPermissions: PermissionResolvable[];
 
 		public hasPermission(message: CommandoMessage, ownerOverride?: boolean): boolean | string;
