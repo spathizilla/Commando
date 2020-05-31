@@ -197,7 +197,7 @@ declare module 'discord.js-commando' {
 		public responsePositions: {};
 		public responses: {};
 
-		public anyUsage(command?: string, prefix?: string, user?: User): string;
+		public anyUsage(command?: string, prefix?: string, user?: User | null): string;
 		public code(lang: string, content: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<Message | Message[]>
 		public direct(content: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<Message | Message[]>;
 		public parseArgs(): string | string[];
