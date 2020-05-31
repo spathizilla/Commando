@@ -285,11 +285,11 @@ class CommandDispatcher {
 		const matches = pattern.exec(message.content);
 		if(!matches) return null;
 		const commands = this.registry.findCommands(matches[commandNameIndex], true);
-		if(commands.length !== 1 || !commands[0].defaultHandling) {
-			return message.initCommand(this.registry.unknownCommand, prefixless ? message.content : matches[1]);
-		}
 		const argString = message.content.substring(matches[commandNameIndex].length +
 				(!prefixless ? matches[1].length : 0));
+		if(commandNameIndex === 3 && (commands.length !== 1 || !commands[0].defaultHandling)) {
+			return message.initCommand(this.registry.unknownCommand, matches[commandNameIndex] + argString);
+		}
 		return message.initCommand(commands[0], argString);
 	}
 
